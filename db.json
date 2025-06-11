@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Awa Ndiaye",
+      "avatar": "https://i.pravatar.cc/150?img=32"
+    },
+    {
+      "id": 2,
+      "name": "Moussa Diop",
+      "avatar": "https://i.pravatar.cc/150?img=12"
+    },
+    {
+      "id": 3,
+      "name": "Fatou Sarr",
+      "avatar": "https://i.pravatar.cc/150?img=25"
+    }
+  ]
+}
