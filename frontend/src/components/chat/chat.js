@@ -1,4 +1,6 @@
 import { state } from "../../state.js";
+// import { socket } from "../socket.js";
+import { socket } from "../../socket.js";
 
 export function renderChat() {
   setTimeout(setupFormHandler, 0);
@@ -49,6 +51,7 @@ function setupFormHandler() {
       .then((res) => res.json())
       .then(() => {
         input.value = "";
+        socket.emit("send_message", newMessage); // 🔁 temps réel
         updateMessages(state.selectedUser);
       })
       .catch((err) => {
@@ -91,3 +94,12 @@ export function updateMessages(user) {
       document.getElementById("chat-messages").innerHTML = html;
     });
 }
+
+socket.on("receive_message", (msg) => {
+  if (!state.selectedUser) return;
+  const isForCurrent =
+    msg.from === state.selectedUser.id || msg.to === state.selectedUser.id;
+  if (isForCurrent) {
+    updateMessages(state.selectedUser);
+  }
+});

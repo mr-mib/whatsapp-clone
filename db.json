@@ -72,6 +72,27 @@
       "to": "2",
       "text": "je passe te recuperer dans 15 minutes",
       "timestamp": "09:49 AM"
+    },
+    {
+      "id": "70bf",
+      "from": "me",
+      "to": "2",
+      "text": "je mettrais plus de temps, je dois regler mon backend afin que les messages s'affiche en temps reel.",
+      "timestamp": "10:20 AM"
+    },
+    {
+      "id": "a834",
+      "from": "me",
+      "to": "2",
+      "text": "Bon, attend je vais verifier sur firefox. Je te reviens!",
+      "timestamp": "10:21 AM"
+    },
+    {
+      "id": "fec8",
+      "from": "me",
+      "to": "2",
+      "text": "cela a marche",
+      "timestamp": "10:23 AM"
     }
   ]
 }
