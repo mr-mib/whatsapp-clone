@@ -21,11 +21,15 @@ export function updateMessages(user) {
   fetch("http://localhost:3001/messages")
     .then((res) => res.json())
     .then((messages) => {
+      console.log("Tous les messages récupérés :", messages);
+
       const filtered = messages.filter(
         (msg) =>
-          (msg.from === "me" && msg.to === user.id) ||
-          (msg.from === user.id && msg.to === "me")
+          (msg.from === "me" && Number(msg.to) === Number(user.id)) ||
+          (Number(msg.from) === Number(user.id) && msg.to === "me")
       );
+
+      console.log("Messages filtrés pour ce user :", filtered);
 
       const html = filtered
         .map(
