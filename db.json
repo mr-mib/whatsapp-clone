@@ -15,5 +15,44 @@
       "name": "Charlie",
       "avatar": "https://i.pravatar.cc/150?u=charlie"
     }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "from": "me",
+      "to": 1,
+      "text": "Salut Alice !",
+      "timestamp": "10:00"
+    },
+    {
+      "id": 2,
+      "from": 1,
+      "to": "me",
+      "text": "Coucou 👋",
+      "timestamp": "10:01"
+    },
+
+    {
+      "id": 3,
+      "from": "me",
+      "to": 2,
+      "text": "Yo Bob, dispo ?",
+      "timestamp": "09:00"
+    },
+    {
+      "id": 4,
+      "from": 2,
+      "to": "me",
+      "text": "Yes frérot",
+      "timestamp": "09:02"
+    },
+
+    {
+      "id": 5,
+      "from": 3,
+      "to": "me",
+      "text": "Charlie ici.",
+      "timestamp": "11:20"
+    }
   ]
 }

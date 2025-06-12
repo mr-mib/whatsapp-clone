@@ -1,13 +1,17 @@
 export function renderHeader() {
-  return `
+  return `<div id="chat-header"></div>`;
+}
+
+export function updateHeader(user) {
+  document.getElementById("chat-header").innerHTML = `
     <header class="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
       <div class="flex items-center gap-2">
-        <div class="w-10 h-10 rounded-full bg-green-500"></div>
-        <span class="font-semibold">Nom du contact</span>
+        <img src="${user.avatar}" class="w-10 h-10 rounded-full" />
+        <span class="font-semibold">${user.name}</span>
       </div>
       <div class="flex items-center gap-4 text-gray-500">
-        <button title="Recherche"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <button title="Menu"><i class="fa-solid fa-ellipsis-v"></i></button>
+        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button><i class="fa-solid fa-ellipsis-v"></i></button>
       </div>
     </header>
   `;
