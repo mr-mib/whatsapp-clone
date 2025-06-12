@@ -1,6 +1,8 @@
 import { updateHeader } from "../header/header.js";
 import { updateMessages } from "../chat/chat.js";
 import { state } from "../../state.js";
+import { renderStatuses } from "./status.js";
+import { showStatusModal } from "../modal.js";
 
 export function renderSidebar() {
   setTimeout(fetchContacts, 0);
@@ -36,6 +38,25 @@ function fetchContacts() {
       `
         )
         .join("");
+
+      renderStatuses(users).then((statusHtml) => {
+        const container = document.createElement("div");
+        container.className = "border-t mt-4";
+        container.innerHTML = `
+    <div class="p-4 font-semibold text-gray-600">Statuts</div>
+    ${statusHtml}
+  `;
+        list.parentElement.appendChild(container);
+
+        // Gestion du clic sur statut
+        container.querySelectorAll("li").forEach((li) => {
+          li.addEventListener("click", () => {
+            const user = JSON.parse(li.dataset.user);
+            const status = JSON.parse(li.dataset.status);
+            showStatusModal(user, status);
+          });
+        });
+      });
 
       list.querySelectorAll("li").forEach((li) => {
         li.addEventListener("click", () => {

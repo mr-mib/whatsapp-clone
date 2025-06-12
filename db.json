@@ -117,6 +117,37 @@
       "text": "🤪",
       "media": null,
       "timestamp": "11:36 AM"
+    },
+    {
+      "id": "4406",
+      "from": "me",
+      "to": "3",
+      "text": "😇",
+      "media": null,
+      "timestamp": "12:16 PM"
+    }
+  ],
+  "statuses": [
+    {
+      "userId": 1,
+      "type": "image",
+      "content": "https://cdn.pixabay.com/photo/2015/10/01/19/05/car-967470_1280.png",
+      "timestamp": "2025-06-12T08:00:00Z",
+      "id": "99fa"
+    },
+    {
+      "userId": 2,
+      "type": "text",
+      "content": "🔥 En route pour le sommet",
+      "timestamp": "2025-06-12T10:00:00Z",
+      "id": "c821"
+    },
+    {
+      "userId": 3,
+      "type": "video",
+      "content": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "timestamp": "2025-06-12T12:00:00Z",
+      "id": "3a89"
     }
   ]
 }
