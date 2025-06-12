@@ -1,58 +1,77 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Alice",
       "avatar": "https://i.pravatar.cc/150?u=alice"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Bob",
       "avatar": "https://i.pravatar.cc/150?u=bob"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Charlie",
       "avatar": "https://i.pravatar.cc/150?u=charlie"
     }
   ],
   "messages": [
     {
-      "id": 1,
+      "id": "1",
       "from": "me",
       "to": 1,
       "text": "Salut Alice !",
       "timestamp": "10:00"
     },
     {
-      "id": 2,
+      "id": "2",
       "from": 1,
       "to": "me",
       "text": "Coucou 👋",
       "timestamp": "10:01"
     },
-
     {
-      "id": 3,
+      "id": "3",
       "from": "me",
       "to": 2,
       "text": "Yo Bob, dispo ?",
       "timestamp": "09:00"
     },
     {
-      "id": 4,
+      "id": "4",
       "from": 2,
       "to": "me",
       "text": "Yes frérot",
       "timestamp": "09:02"
     },
-
     {
-      "id": 5,
+      "id": "5",
       "from": 3,
       "to": "me",
       "text": "Charlie ici.",
       "timestamp": "11:20"
+    },
+    {
+      "id": "23c9",
+      "from": "me",
+      "to": "1",
+      "text": "Bonjour Alice",
+      "timestamp": "09:48 AM"
+    },
+    {
+      "id": "c1c9",
+      "from": "me",
+      "to": "3",
+      "text": "Recu, j'enregistre immediatement ton numero!",
+      "timestamp": "09:49 AM"
+    },
+    {
+      "id": "37ba",
+      "from": "me",
+      "to": "2",
+      "text": "je passe te recuperer dans 15 minutes",
+      "timestamp": "09:49 AM"
     }
   ]
 }
