@@ -2,18 +2,18 @@
   "users": [
     {
       "id": 1,
-      "name": "Awa Ndiaye",
-      "avatar": "https://i.pravatar.cc/150?img=32"
+      "name": "Alice",
+      "avatar": "https://i.pravatar.cc/150?u=alice"
     },
     {
       "id": 2,
-      "name": "Moussa Diop",
-      "avatar": "https://i.pravatar.cc/150?img=12"
+      "name": "Bob",
+      "avatar": "https://i.pravatar.cc/150?u=bob"
     },
     {
       "id": 3,
-      "name": "Fatou Sarr",
-      "avatar": "https://i.pravatar.cc/150?img=25"
+      "name": "Charlie",
+      "avatar": "https://i.pravatar.cc/150?u=charlie"
     }
   ]
 }
