@@ -6,7 +6,21 @@ export function renderChat() {
 
   return `
     <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-2 bg-[url('./assets/bg-chat.png')] bg-cover"></div>
-    <form id="chat-form" class="flex items-center px-4 py-2 border-t bg-white gap-2">
+    <form id="chat-form" class="flex items-center px-4 py-2 border-t bg-white gap-2 relative">
+      <div class="relative">
+        <button type="button" id="emoji-btn" class="text-gray-600">
+          <i class="fa-regular fa-face-smile"></i>
+        </button>
+        <div id="emoji-popup" class="absolute bottom-10 left-0 p-2 bg-white border rounded shadow-md grid grid-cols-6 gap-2 text-xl hidden z-50 w-52 max-h-48 overflow-y-auto">
+          <span>😀</span><span>😃</span><span>😄</span><span>😁</span><span>😆</span><span>😅</span>
+          <span>😂</span><span>🤣</span><span>😊</span><span>😇</span><span>🙂</span><span>🙃</span>
+          <span>😉</span><span>😌</span><span>😍</span><span>🥰</span><span>😘</span><span>😗</span>
+          <span>😙</span><span>😚</span><span>😋</span><span>😛</span><span>😝</span><span>😜</span>
+          <span>🤪</span><span>🤨</span><span>🧐</span><span>🤓</span><span>😎</span><span>🤩</span>
+          <span>🥳</span><span>😏</span><span>😒</span><span>😞</span><span>😔</span><span>😟</span>
+          <span>😕</span><span>🙁</span><span>☹️</span>
+        </div>
+      </div>
       <input type="file" id="file-input" class="hidden" />
       <button type="button" id="file-btn" class="text-gray-600">
         <i class="fa-solid fa-paperclip"></i>
@@ -72,18 +86,38 @@ function setupFormHandler() {
   const input = document.getElementById("message-input");
   const fileInput = document.getElementById("file-input");
   const fileBtn = document.getElementById("file-btn");
+  const emojiBtn = document.getElementById("emoji-btn");
+  const emojiPopup = document.getElementById("emoji-popup");
 
   let selectedFile = null;
 
   fileBtn.addEventListener("click", () => fileInput.click());
-
   fileInput.addEventListener("change", () => {
     selectedFile = fileInput.files[0];
   });
 
+  emojiBtn.addEventListener("click", () => {
+    emojiPopup.classList.toggle("hidden");
+  });
+
+  emojiPopup.querySelectorAll("span").forEach((e) => {
+    e.addEventListener("click", () => {
+      input.value += e.textContent;
+      emojiPopup.classList.add("hidden");
+      input.focus();
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    const isEmoji =
+      emojiBtn.contains(e.target) || emojiPopup.contains(e.target);
+    if (!isEmoji) {
+      emojiPopup.classList.add("hidden");
+    }
+  });
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-
     if (!state.selectedUser) return;
 
     const text = input.value.trim();
@@ -130,7 +164,7 @@ function setupFormHandler() {
   });
 }
 
-// 🔁 Mise à jour en temps réel
+// 🔁 Écoute Socket.IO : actualisation live du fil
 socket.on("receive_message", (msg) => {
   if (!state.selectedUser) return;
   const isForCurrent =
