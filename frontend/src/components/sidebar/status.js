@@ -2,18 +2,18 @@ export function renderStatuses(users) {
   return fetch("http://localhost:3001/statuses")
     .then((res) => res.json())
     .then((statuses) => {
-      console.log("✅ STATUSES CHARGÉS :", statuses);
-      console.log("👤 UTILISATEURS DISPONIBLES :", users);
+      // console.log("✅ STATUSES CHARGÉS :", statuses);
+      // console.log("👤 UTILISATEURS DISPONIBLES :", users);
 
       const list = users
         .map((user) => {
           const userStatus = statuses.find(
             (s) => Number(s.userId) === Number(user.id)
           );
-          console.log(
-            `🔍 User ${user.name} (${user.id}) a un statut ?`,
-            userStatus
-          );
+          // console.log(
+          //   `🔍 User ${user.name} (${user.id}) a un statut ?`,
+          //   userStatus
+          // );
 
           if (!userStatus) return "";
 

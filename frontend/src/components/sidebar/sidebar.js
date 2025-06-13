@@ -3,6 +3,10 @@ import { updateMessages } from "../chat/chat.js";
 import { state } from "../../state.js";
 import { renderStatuses } from "./status.js";
 import { showStatusModal } from "../modal.js";
+import { updateGroupHeader } from "../header/group_header.js";
+import { updateGroupMessages } from '../chat/chat.js'
+import { renderChat } from "../chat/chat.js";
+
 
 export function renderSidebar() {
   setTimeout(fetchContacts, 0);
@@ -64,6 +68,52 @@ function fetchContacts() {
           state.selectedUser = user;
           updateHeader(user);
           updateMessages(user);
+        });
+      });
+    });
+
+  fetchGroups();
+}
+
+function fetchGroups() {
+  fetch("http://localhost:3001/groups")
+    .then((res) => res.json())
+    .then((groups) => {
+      const container = document.createElement("div");
+      container.className = "border-t mt-4";
+      container.innerHTML = `
+        <div class="p-4 font-semibold text-gray-600">Groupes</div>
+        <ul id="group-list" class="divide-y divide-gray-200">
+          ${groups
+            .map(
+              (g) => `
+            <li class="flex items-center gap-4 p-2 hover:bg-gray-100 cursor-pointer"
+                data-group='${JSON.stringify(g)}'>
+              <img src="${g.avatar}" alt="${
+                g.name
+              }" class="w-10 h-10 rounded-full" />
+              <div>
+                <div class="font-medium">${g.name}</div>
+              </div>
+            </li>
+          `
+            )
+            .join("")}
+        </ul>
+      `;
+      document
+        .getElementById("contact-list")
+        .parentElement.appendChild(container);
+
+      // Gestion du clic
+      container.querySelectorAll("li").forEach((li) => {
+        li.addEventListener("click", () => {
+          const group = JSON.parse(li.dataset.group);
+          state.selectedGroup = group;
+          state.selectedUser = null;
+          updateGroupHeader(group);
+          renderChat() // ← ← ← important
+          updateGroupMessages(group);
         });
       });
     });
