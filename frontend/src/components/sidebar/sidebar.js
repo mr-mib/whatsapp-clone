@@ -24,7 +24,7 @@ export function renderSidebar() {
 }
 
 function fetchContacts() {
-  fetch(`${state.backendUrl}/users`) // `${state.backendUrl}/users` === "http://localhost:3001/users"
+  fetch("/api/users") // `${state.backendUrl}/users` === "http://localhost:3001/users"
     .then((res) => res.json())
     .then((users) => {
       const list = document.getElementById("contact-list");
