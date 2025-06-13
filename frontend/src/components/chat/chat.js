@@ -1,5 +1,6 @@
 import { state } from "../../state.js";
 import { socket } from "../../socket.js";
+import { showToast, showSystemNotification } from "../../notifications.js";
 
 export function renderChat() {
   setTimeout(setupFormHandler, 0);
@@ -167,9 +168,14 @@ function setupFormHandler() {
 // 🔁 Écoute Socket.IO : actualisation live du fil
 socket.on("receive_message", (msg) => {
   if (!state.selectedUser) return;
+
   const isForCurrent =
     msg.from === state.selectedUser.id || msg.to === state.selectedUser.id;
+
   if (isForCurrent) {
     updateMessages(state.selectedUser);
+  } else {
+    showToast(`📨 Nouveau message de ${msg.from}`);
+    showSystemNotification("WhatsApp Clone", `Message reçu de ${msg.from}`);
   }
 });
