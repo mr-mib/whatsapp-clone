@@ -139,14 +139,6 @@
       "to": "group-1",
       "text": "Hello 👋",
       "timestamp": "10:01"
-    },
-    {
-      "id": "b839",
-      "from": "me",
-      "to": "group-1",
-      "text": "test de l'envoi en groupe",
-      "media": null,
-      "timestamp": "12:21 PM"
     }
   ],
   "statuses": [
@@ -177,20 +169,13 @@
       "id": "1",
       "name": "Groupe Dev",
       "avatar": "https://api.dicebear.com/6.x/initials/svg?seed=GD",
-      "members": [
-        1,
-        2,
-        3
-      ]
+      "members": [1, 2, 3]
     },
     {
       "id": "2",
       "name": "Team Projet",
       "avatar": "https://api.dicebear.com/6.x/initials/svg?seed=TP",
-      "members": [
-        2,
-        3
-      ]
+      "members": [2, 3]
     }
   ]
 }
