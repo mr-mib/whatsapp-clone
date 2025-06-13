@@ -40,7 +40,7 @@ export function renderChat() {
 }
 
 export function updateMessages(user) {
-  fetch("http://localhost:3001/messages")
+  fetch(`${state.backendUrl}/messages`)  // ${state.backendUrl}/messages  === http://localhost:3001/messages
     .then((res) => res.json())
     .then((messages) => {
       const filtered = messages.filter(
@@ -72,7 +72,7 @@ export function updateMessages(user) {
 }
 
 export function updateGroupMessages(group) {
-  fetch("http://localhost:3001/messages")
+  fetch(`${state.backendUrl}/messages`)   // `${state.backendUrl}/messages` === "http://localhost:3001/messages"
     .then((res) => res.json())
     .then((messages) => {
       const filtered = messages.filter((msg) => msg.to === `group-${group.id}`);
@@ -179,7 +179,8 @@ function setupFormHandler() {
 
       console.log("📤 Envoi du message :", newMessage);
 
-      fetch("http://localhost:3001/messages", {
+      // `${state.backendUrl}/messages` === "http://localhost:3001/messages"
+      fetch(`${state.backendUrl}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newMessage),

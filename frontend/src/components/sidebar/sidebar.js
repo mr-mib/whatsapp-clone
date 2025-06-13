@@ -4,9 +4,8 @@ import { state } from "../../state.js";
 import { renderStatuses } from "./status.js";
 import { showStatusModal } from "../modal.js";
 import { updateGroupHeader } from "../header/group_header.js";
-import { updateGroupMessages } from '../chat/chat.js'
+import { updateGroupMessages } from "../chat/chat.js";
 import { renderChat } from "../chat/chat.js";
-
 
 export function renderSidebar() {
   setTimeout(fetchContacts, 0);
@@ -25,7 +24,7 @@ export function renderSidebar() {
 }
 
 function fetchContacts() {
-  fetch("http://localhost:3001/users")
+  fetch(`${state.backendUrl}/users`) // `${state.backendUrl}/users` === "http://localhost:3001/users"
     .then((res) => res.json())
     .then((users) => {
       const list = document.getElementById("contact-list");
@@ -76,7 +75,9 @@ function fetchContacts() {
 }
 
 function fetchGroups() {
-  fetch("http://localhost:3001/groups")
+  
+  // "http://localhost:3001/groups" === `${state.backendUrl}/groups`
+  fetch(`${state.backendUrl}/groups`) 
     .then((res) => res.json())
     .then((groups) => {
       const container = document.createElement("div");
@@ -112,7 +113,7 @@ function fetchGroups() {
           state.selectedGroup = group;
           state.selectedUser = null;
           updateGroupHeader(group);
-          renderChat() // ← ← ← important
+          renderChat(); // ← ← ← important
           updateGroupMessages(group);
         });
       });

@@ -1,5 +1,8 @@
+import { state } from "../../state";
+
 export function renderStatuses(users) {
-  return fetch("http://localhost:3001/statuses")
+  // `${state.backendUrl}/groups` === "http://localhost:3001/statuses"
+  return fetch(`${state.backendUrl}/statuses`)
     .then((res) => res.json())
     .then((statuses) => {
       // console.log("✅ STATUSES CHARGÉS :", statuses);
