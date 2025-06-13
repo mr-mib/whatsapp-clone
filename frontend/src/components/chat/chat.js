@@ -71,6 +71,36 @@ export function updateMessages(user) {
     });
 }
 
+export function updateGroupMessages(group) {
+  fetch("http://localhost:3001/messages")
+    .then((res) => res.json())
+    .then((messages) => {
+      const filtered = messages.filter((msg) => msg.to === `group-${group.id}`);
+
+      const html = filtered
+        .map((msg) => {
+          const isMe = msg.from === "me";
+          const align = isMe ? "justify-end" : "justify-start";
+          const bg = isMe ? "bg-green-200" : "bg-gray-200";
+          const label = isMe ? "Moi" : `👤 ${msg.from}`;
+          const media = msg.media ? getMediaPreview(msg.media) : "";
+
+          return `
+          <div class="flex ${align}">
+            <div class="max-w-xs px-4 py-2 rounded-lg ${bg} break-words">
+              <div class="text-xs text-gray-500 mb-1">${label}</div>
+              ${msg.text}
+              ${media}
+            </div>
+          </div>
+        `;
+        })
+        .join("");
+
+      document.getElementById("chat-messages").innerHTML = html;
+    });
+}
+
 function getMediaPreview(dataUrl) {
   if (dataUrl.startsWith("data:image")) {
     return `<img src="${dataUrl}" class="mt-2 rounded-md max-w-full" />`;
@@ -82,6 +112,11 @@ function getMediaPreview(dataUrl) {
 }
 
 function setupFormHandler() {
+  // 🔒 Empêche la double initialisation
+  if (window.__formHandlerSetup) return;
+  window.__formHandlerSetup = true;
+  console.log("✅ Handler attaché une seule fois");
+
   const form = document.getElementById("chat-form");
   const input = document.getElementById("message-input");
   const fileInput = document.getElementById("file-input");
@@ -118,7 +153,14 @@ function setupFormHandler() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (!state.selectedUser) return;
+
+    const to = state.selectedUser
+      ? state.selectedUser.id
+      : state.selectedGroup
+      ? `group-${state.selectedGroup.id}`
+      : null;
+
+    if (!to) return;
 
     const text = input.value.trim();
     if (!text && !selectedFile) return;
@@ -126,7 +168,7 @@ function setupFormHandler() {
     const sendMessage = (fileDataUrl = null) => {
       const newMessage = {
         from: "me",
-        to: state.selectedUser.id,
+        to,
         text: text || "",
         media: fileDataUrl,
         timestamp: new Date().toLocaleTimeString([], {
@@ -134,6 +176,8 @@ function setupFormHandler() {
           minute: "2-digit",
         }),
       };
+
+      console.log("📤 Envoi du message :", newMessage);
 
       fetch("http://localhost:3001/messages", {
         method: "POST",
@@ -146,7 +190,6 @@ function setupFormHandler() {
           fileInput.value = "";
           selectedFile = null;
           socket.emit("send_message", newMessage);
-          updateMessages(state.selectedUser);
         })
         .catch((err) => {
           console.error("Erreur d'envoi du message :", err);
@@ -164,12 +207,19 @@ function setupFormHandler() {
   });
 }
 
-// 🔁 Écoute Socket.IO : actualisation live du fil
+// 🔁 Écoute Socket.IO : actualisation live
 socket.on("receive_message", (msg) => {
-  if (!state.selectedUser) return;
-  const isForCurrent =
-    msg.from === state.selectedUser.id || msg.to === state.selectedUser.id;
-  if (isForCurrent) {
+  console.log("📥 Message reçu via socket :", msg);
+
+  const currentGroupId = state.selectedGroup?.id;
+  const currentUserId = state.selectedUser?.id;
+
+  if (msg.to === `group-${currentGroupId}`) {
+    updateGroupMessages(state.selectedGroup);
+  } else if (
+    (msg.from === currentUserId && msg.to === "me") ||
+    (msg.to === currentUserId && msg.from === "me")
+  ) {
     updateMessages(state.selectedUser);
   }
 });
