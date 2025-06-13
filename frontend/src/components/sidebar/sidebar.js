@@ -24,7 +24,7 @@ export function renderSidebar() {
 }
 
 function fetchContacts() {
-  fetch("/api/users") // `${state.backendUrl}/users` === "http://localhost:3001/users"
+  fetch("https://render-json-server-oz0p.onrender.com/users") // `${state.backendUrl}/users` === "http://localhost:3001/users"
     .then((res) => res.json())
     .then((users) => {
       const list = document.getElementById("contact-list");
